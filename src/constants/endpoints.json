@@ -1,0 +1,15 @@
+{
+    "GET_FILE": {
+      "url": "/file",
+      "version": "v1"
+    },
+    "POST_UPLOAD_FILE": {
+      "url": "/file",
+      "version": "v1"
+    },
+    "": {
+      "url": "",
+      "version": "v1"
+    }
+  }
+  

@@ -1,0 +1,9 @@
+const types = {
+    FILE: {
+        UPLOAD_REQUEST: 'FILE.UPLOAD_REQUEST',
+        UPLOAD_REQUEST_SUCCESS: 'FILE.UPLOAD_REQUEST_SUCCESS',
+        UPLOAD_REQUEST_FAILURE: 'FILE.UPLOAD_REQUEST_FAILURE'
+    },
+};
+
+export default types;

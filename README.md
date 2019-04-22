@@ -21,7 +21,7 @@ Running up Vizyul application locally
 
 ### Dev  
 
-`npm run start:dev`
+`npm run start`
 
 ### Production
 
