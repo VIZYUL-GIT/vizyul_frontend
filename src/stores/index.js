@@ -1,16 +1,19 @@
-import { applyMiddleware, createStore, combineReducers } from 'redux';
+import {
+  applyMiddleware,
+  createStore,
+  combineReducers
+} from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
 import { createHashHistory } from 'history';
-import { routerMiddleware } from 'connected-react-router'
+import { routerReducer, routerMiddleware } from 'react-router-redux';
 import reducers from '../reducers';
 import rootSaga from '../sagas';
-const history = createHashHistory({});
-history.listen((location, action) => {
-  if (action === 'PUSH') {
-    window.scrollTo(0,0);
-  }
+
+const history = createHashHistory({
+  hashType:'slash'
 });
+
 const sagaMiddleware = createSagaMiddleware();
 const reduxRouterMiddleware = routerMiddleware(history);
 const enhancers = composeWithDevTools(
@@ -18,11 +21,13 @@ const enhancers = composeWithDevTools(
   applyMiddleware(reduxRouterMiddleware)
 );
 const store = createStore(
-  reducers(history),
+  reducers,
   enhancers
 );
 
 sagaMiddleware.run(rootSaga);
 
 export default store;
-export { history };
+export {
+  history
+};

@@ -1,8 +1,8 @@
-import { combineReducers } from 'redux';
-import { connectRouter } from 'connected-react-router';
+import {
+  combineReducers
+} from 'redux';
 import fileReducer from './fileReducer';
 
-export default (history) => combineReducers({
-  router: connectRouter(history),
-  fileReducer,
+export default combineReducers({
+  fileReducer
 })
