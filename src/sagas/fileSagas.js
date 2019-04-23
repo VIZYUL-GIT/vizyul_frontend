@@ -4,6 +4,7 @@ import Api from "../util/Api";
 import endpoints from "../constants/endpoints.json";
 
 export function* uploadFile(file) {
+  console.log('file', file)
   const endpoint = endpoints.POST_UPLOAD_FILE;
   const { result, error } = yield call(Api.upload, {
     url: `/${endpoint.version}${endpoint.url}`,
@@ -24,5 +25,5 @@ export function* uploadFile(file) {
 }
 
 export default function* fileSagas() {
-  yield takeLatest(types.FILE.UPLOAD_REQUEST, uploadFile);
+  yield takeLatest(types.FILE.UPLOAD, uploadFile);
 }

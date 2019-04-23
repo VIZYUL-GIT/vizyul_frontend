@@ -2,7 +2,7 @@ import types from './types';
 
 export const uploadFile = file => {
     return {
-        type: types.FILE.UPLOAD_REQUEST,
+        type: types.FILE.UPLOAD,
         file
     }
 };

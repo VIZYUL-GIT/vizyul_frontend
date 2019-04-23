@@ -9,12 +9,12 @@ const fileReducer = (state = initialState, action) => {
     case types.FILE.UPLOAD_REQUEST_SUCCESS:
     return {
         ...state,
-        upload_file: true
+        upload: true
       };
     case types.FILE.UPLOAD_REQUEST_FAILURE:
     return {
         ...state,
-        upload_file: false
+        upload: false
     };
     default:
       return state;
