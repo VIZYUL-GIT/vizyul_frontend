@@ -15,7 +15,7 @@ module.exports = env => {
     ],
     output: {
       path: path.resolve(__dirname, "build"),
-      publicPath:'/vizual/',
+      publicPath:'/vizyul/',
       filename: 'index_bundle.js'
     },
     module: {
@@ -69,7 +69,7 @@ module.exports = env => {
       filename: 'index.html',
       inject: 'body',
     }),
-    new BaseHrefWebpackPlugin({ baseHref: '/vizual/' }),
+    new BaseHrefWebpackPlugin({ baseHref: '/vizyul/' }),
     new ExtractTextPlugin('style.css', { allChunks: true }),
     ],
   };
