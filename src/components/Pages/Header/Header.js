@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import "./Header.scss";
 import { NavLink } from "react-router-dom";
 import { withRouter } from "react-router-dom";
+import * as routes from "../../../constants/routes"
 
 class Header extends React.Component {
     constructor(props) {
@@ -23,8 +24,8 @@ class Header extends React.Component {
                     <div className="navbar-brand"></div>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="nav navbar-nav">
-                            <li key="1"><NavLink to="/home" className="normal" activeClassName="active" isActive={isActive.bind(this, 'home')} exact>Home</NavLink></li>
-                            <li key="2"><NavLink to="/file/upload" className="normal" activeClassName="active" isActive={isActive.bind(this, 'file/upload')} exact>Upload File</NavLink></li>
+                            <li key="1"><NavLink to={routes.HOME_PAGE} className="normal" activeClassName="active" isActive={isActive.bind(this, 'home')} exact>Home</NavLink></li>
+                            <li key="2"><NavLink to={routes.UPLOAD_PAGE} className="normal" activeClassName="active" isActive={isActive.bind(this, 'file/upload')} exact>Upload</NavLink></li>
                         </ul>
                     </div>
                 </nav>

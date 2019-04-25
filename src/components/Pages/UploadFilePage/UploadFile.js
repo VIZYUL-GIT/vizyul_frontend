@@ -5,7 +5,7 @@ import ReactDropzone from "react-dropzone";
 import { uploadFile } from "../../../actions/fileActions"
 class UploadFile extends Component {
   onDrop = (files) => {
-      this.props.uploadFile(files)
+    this.props.uploadFile(files)
   }
 
   render() {
@@ -13,7 +13,9 @@ class UploadFile extends Component {
       <div className="app">
         <ReactDropzone
           multiple 
+          name='file'
           onDrop={this.onDrop}
+          accept=".twb"
         >
           Drag your file
         </ReactDropzone>

@@ -28,7 +28,7 @@ class App extends Component {
           <Redirect exact from="/" to={routes.HOME_PAGE} />
           <Route exact path={routes.HOME_PAGE} component={HomePageAugmented} />
         </Switch>
-        <Route exact path={routes.UPLOAD_FILE_PAGE} component={UploadFilePageAugmented} />
+        <Route exact path={routes.UPLOAD_PAGE} component={UploadFilePageAugmented} />
       </div>
     );
   }

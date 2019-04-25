@@ -1,8 +1,8 @@
 import types from './types';
 
-export const uploadFile = file => {
+export const uploadFile = files => {
     return {
         type: types.FILE.UPLOAD,
-        file
+        files
     }
 };

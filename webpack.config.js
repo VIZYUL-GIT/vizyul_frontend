@@ -1,5 +1,6 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
 const { BaseHrefWebpackPlugin } = require('base-href-webpack-plugin');
 
 var fs = require('fs');
@@ -15,7 +16,7 @@ module.exports = env => {
     ],
     output: {
       path: path.resolve(__dirname, "build"),
-      publicPath:'/vizyul/',
+      publicPath:'/',
       filename: 'index_bundle.js'
     },
     module: {
@@ -59,7 +60,7 @@ module.exports = env => {
     },
     devServer: {
       inline: true,
-      port: 8008,
+      port: 8009,
       historyApiFallback: true,
       contentBase: path.join(__dirname, './build'),
     },
@@ -69,7 +70,8 @@ module.exports = env => {
       filename: 'index.html',
       inject: 'body',
     }),
-    new BaseHrefWebpackPlugin({ baseHref: '/vizyul/' }),
+    new BaseHrefWebpackPlugin({ baseHref: '/' }),
+    new FaviconsWebpackPlugin({ logo: "./vizyul_icon.png", inject: true }),
     new ExtractTextPlugin('style.css', { allChunks: true }),
     ],
   };

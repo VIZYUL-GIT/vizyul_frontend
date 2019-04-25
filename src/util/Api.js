@@ -102,11 +102,16 @@ const Api = {
         const time = new Date();
         const apiUrl = config.apiUrl;
         const { url, data } = params;
-
+        let authOptions = {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        };
         return axios({
             method: 'post',
             url: `${apiUrl}${url}`,
-            data: data
+            data: data,
+            authOptions
         })
             .then(result => ({ result }))
             .catch(error => ({ error }));
