@@ -60,7 +60,7 @@ module.exports = env => {
     },
     devServer: {
       inline: true,
-      port: 8009,
+      port: 8008,
       historyApiFallback: true,
       contentBase: path.join(__dirname, './build'),
     },
