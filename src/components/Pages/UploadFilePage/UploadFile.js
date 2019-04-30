@@ -19,6 +19,7 @@ class UploadFile extends Component {
         >
           Drag your file
         </ReactDropzone>
+
       </div>
     );
   }

@@ -15,13 +15,25 @@ export function* uploadFile(action) {
     url: `/${endpoint.version}${endpoint.url}`,
     data: data
   });
+
+  console.log('result', result)
   try {
     if (result) {
-      
+      yield put({
+        type: types.FILE.UPLOAD_SUCCESS,
+        data: data
+      });
+    }else{
+      yield put({
+        type: types.FILE.UPLOAD_FAILURE,
+        data: data
+      });    
     }
-    throw error;
   } catch (error) {
-
+    yield put({
+      type: types.FILE.UPLOAD_FAILURE,
+      error
+    });
   }
 }
 

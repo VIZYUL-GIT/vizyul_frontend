@@ -5,10 +5,14 @@ import UploadFile from "./UploadFile"
 
 class UploadFilePage extends React.Component {
   render() {
+
+    const msg = this.props.upload===null?'':(this.props.upload===true?'File sucessfully uploaded':'File upload failed');
+
     return (
       <div>
         <h1>UploadFile Page</h1>
-        <UploadFile />
+        <UploadFile/>
+        <span>{msg}</span>
       </div>
     );
   }
@@ -17,7 +21,9 @@ class UploadFilePage extends React.Component {
 const actions = {};
 
 const mapStateToProps = state => {
-  return {};
+  return {
+    upload: state.fileReducer.upload
+  };
 };
 
 export default connect(
