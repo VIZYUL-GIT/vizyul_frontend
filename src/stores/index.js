@@ -5,14 +5,12 @@ import {
 } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
-import { createHashHistory } from 'history';
+import { createBrowserHistory } from 'history';
 import { routerReducer, routerMiddleware } from 'react-router-redux';
 import reducers from '../reducers';
 import rootSaga from '../sagas';
 
-const history = createHashHistory({
-  hashType:'slash'
-});
+const history = createBrowserHistory({});
 
 const sagaMiddleware = createSagaMiddleware();
 const reduxRouterMiddleware = routerMiddleware(history);

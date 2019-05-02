@@ -24,15 +24,11 @@ class App extends Component {
     // prettier-ignore
     return (
       <div className="app">
-        <Switch>
-          <Redirect exact from="/" to={routes.HOME_PAGE} />
-          <Route exact path={routes.HOME_PAGE} component={HomePageAugmented} />
-        </Switch>
+        <Route exact path={routes.HOME_PAGE} component={HomePageAugmented} />
         <Route exact path={routes.UPLOAD_PAGE} component={UploadFilePageAugmented} />
       </div>
     );
   }
 }
-
 
 export default App;
