@@ -99,7 +99,6 @@ const Api = {
             .catch(error => ({ error }));
     },
     upload: params => {
-        const time = new Date();
         const apiUrl = config.apiUrl;
         const { url, data } = params;
         let authOptions = {

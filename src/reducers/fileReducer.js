@@ -1,8 +1,7 @@
 import types from '../actions/types';
 
 const initialState = {
-  file: null,
-  upload: null
+  file: null
 };
 
 const fileReducer = (state = initialState, action) => {
@@ -16,6 +15,12 @@ const fileReducer = (state = initialState, action) => {
     return {
         ...state,
         upload: false
+    };
+    case types.FILE.UPLOAD_PROGRESS:
+    console.log('action', action)
+    return {
+        ...state,
+        progress: action.paylolad
     };
     default:
       return state;

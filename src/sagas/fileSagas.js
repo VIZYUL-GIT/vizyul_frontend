@@ -16,7 +16,6 @@ export function* uploadFile(action) {
     data: data
   });
 
-  console.log('result', result)
   try {
     if (result) {
       yield put({
