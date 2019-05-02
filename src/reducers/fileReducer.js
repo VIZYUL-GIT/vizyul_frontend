@@ -17,10 +17,9 @@ const fileReducer = (state = initialState, action) => {
         upload: false
     };
     case types.FILE.UPLOAD_PROGRESS:
-    console.log('action', action)
     return {
         ...state,
-        progress: action.paylolad
+        progress: action.payload
     };
     default:
       return state;

@@ -37,5 +37,5 @@ export function* uploadFile(action) {
 }
 
 export default function* fileSagas() {
-  yield takeLatest(types.FILE.UPLOAD, uploadFile);
+  yield takeLatest(types.FILE.UPLOAD, uploadFile)
 }

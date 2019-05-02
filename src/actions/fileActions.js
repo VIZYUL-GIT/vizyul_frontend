@@ -6,3 +6,4 @@ export const uploadFile = files => {
         files
     }
 };
+

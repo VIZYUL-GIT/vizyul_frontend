@@ -7,6 +7,14 @@
       "url": "/file",
       "version": "v1"
     },
+    "GET_LIST_REQUST": {
+      "url": "/file",
+      "version": "v1"
+    },
+    "GET_QUERY": {
+      "url": "/xpath",
+      "version": "v1"
+    },
     "": {
       "url": "",
       "version": "v1"

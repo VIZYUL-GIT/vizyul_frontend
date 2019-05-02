@@ -2,13 +2,11 @@ import axios from 'axios';
 import { mockApi } from './mockApi';
 import config from 'config';
 
-const emptyFn = () => true;
 const Api = {
     get: params => {
-        const time = new Date();
         const apiUrl = config.apiUrl;
-        const { url, data = { params: { time } } } = params;
-
+        const { url, data } = params;
+        console.log('data', data)
         if (Object.keys(mockApi).includes(url)) {
             console.log('MOCKING API: ' + url);
             return Promise.resolve([]).then(results => {
@@ -23,7 +21,6 @@ const Api = {
             }
         };
 
-        data.params['ignore_headers'] = true;
         return axios
             .get(`${apiUrl}${url}`, { ...data }, authOptions)
             .then(result => ({ result }))

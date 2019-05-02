@@ -4,6 +4,10 @@ import "./UploadFilePage.scss";
 import UploadFile from "./UploadFile"
 
 class UploadFilePage extends React.Component {
+  constructor(props){
+    super(props);
+  }
+
   render() {
     return (
       <div>

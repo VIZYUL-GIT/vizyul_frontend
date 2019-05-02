@@ -26,6 +26,7 @@ class Header extends React.Component {
                         <ul className="nav navbar-nav">
                             <li key="1"><NavLink to={routes.HOME_PAGE} className="normal" activeClassName="active" isActive={isActive.bind(this, 'home')} exact>Home</NavLink></li>
                             <li key="2"><NavLink to={routes.UPLOAD_PAGE} className="normal" activeClassName="active" isActive={isActive.bind(this, 'file/upload')} exact>Upload</NavLink></li>
+                            <li key="3"><NavLink to={routes.XPATH_PAGE} className="normal" activeClassName="active" isActive={isActive.bind(this, 'file/xpath')} exact>Xpath</NavLink></li>
                         </ul>
                     </div>
                 </nav>
