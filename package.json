@@ -87,7 +87,7 @@
     "react-apollo": "^2.1.1",
     "react-datepicker": "^0.58.0",
     "react-dom": "^16.0.0",
-    "react-dropzone": "^4.3.0",
+    "react-dropzone": "^10.1.4",
     "react-redux": "^5.0.7",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
@@ -98,7 +98,9 @@
     "reselect": "^3.0.1",
     "sass-loader": "^7.0.3",
     "style-loader": "^0.21.0",
-    "validate.js": "^0.12.0"
+    "validate.js": "^0.12.0",
+    "xmldom": "^0.1.27",
+    "xpath": "0.0.27"
   },
   "jest": {
     "testURL": "http://localhost",

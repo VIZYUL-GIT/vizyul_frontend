@@ -20,3 +20,10 @@ export const queryXpath = (file, xpath) => {
         xpath: xpath
     }
 };
+
+export const queryXpathSuccess = result => {
+    return {
+        type: types.XPATH.QUERY_SUCCESS,
+        result
+    }
+};

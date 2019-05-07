@@ -11,6 +11,12 @@ const xpathReducer = (state = initialState, action) => {
         ...state,
         files: action.result['data']
     };
+    case types.XPATH.QUERY_SUCCESS:
+    console.log('xpaths', action.result['data'])
+    return {
+        ...state,
+        xpaths: action.result['data']
+    };
     default:
       return state;
   }

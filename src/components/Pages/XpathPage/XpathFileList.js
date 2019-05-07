@@ -20,7 +20,8 @@ class XpathFileList extends Component {
     }
     render() {
     const { file, xpath } = this.state
-    const { files } = this.props
+    const { files, xpaths } = this.props
+    console.log('files', files)
     const { queryXpath } = this
         return (
         <div>
@@ -45,12 +46,25 @@ class XpathFileList extends Component {
             ))}
           </ul>
         : null }  
+        { typeof xpaths !== "undefined" 
+        ? <div>
+            <label htmlFor="xpath">Query XPATH:</label>
+            <ul className="xpath-list"> 
+                {xpaths.map((xpath, key) => (
+                <li key={key} >
+                    <p>{xpath.string}</p>
+                </li>
+                ))}
+            </ul>
+          </div>
+        : null } 
         </div>);
     }
 }
 
 const mapStateToProps = (state) => ({
     files: state.xpathReducer.files,
+    xpaths: state.xpathReducer.xpaths,
 })
 
 const mapDispatchToProps = dispatch =>

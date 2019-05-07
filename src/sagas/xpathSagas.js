@@ -42,7 +42,7 @@ export function* query(data) {
   
     try {
       if (result) {
-        yield put(xpathActions.requestListSuccess(result['data']));
+        yield put(xpathActions.queryXpathSuccess(result['data']));
       }else{
         yield put({
           type: types.XPATH.LIST_REQUEST_FAILURE,
