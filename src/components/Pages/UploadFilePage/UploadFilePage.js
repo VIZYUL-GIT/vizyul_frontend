@@ -13,10 +13,12 @@ class UploadFilePage extends React.Component {
   }
 
   updateState(key, value) {
-    this.setState({ [key]: value });
+    this.setState({ [key]: value },() => this.forceUpdate());
   }
 
   render() {
+    const {countArray} = this.state
+    console.log('  console.log(countArray.length)', countArray.length)
     const { updateState } = this;
     return (
       <div>
@@ -27,7 +29,19 @@ class UploadFilePage extends React.Component {
             ...this.state,
             updateState,
           }}
-        />
+        /> 
+      { typeof countArray.length != 0 
+        ? <div className="file-list"> 
+            
+            {countArray.map((file, key) => (
+            <div className="file-count" key={key}>
+                <p>Datasource: {file.datasource}</p>
+                <p>Worksheet: {file.worksheet}</p>
+                <p>Dashboard: {file.dashboard}</p>
+            </div>
+            ))}
+          </div>
+        : null }
       </div>
     );
   }
