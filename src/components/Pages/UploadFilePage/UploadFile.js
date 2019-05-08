@@ -8,6 +8,8 @@ var xpath = require('xpath')
   , dom = require('xmldom').DOMParser
  
 const UploadFile = ({
+    upload,
+    percent,
     updateState,
   }) => {
 
@@ -22,10 +24,14 @@ const UploadFile = ({
       // Do whatever you want with the file contents
       const binaryStr = reader.result
       const doc = new dom().parseFromString(binaryStr)
+      const filename = file.name
+      const filesize = file.size
       const datasource = xpath.select(`/workbook/datasources/datasource` , doc).length
       const worksheet = xpath.select(`/workbook/worksheets/worksheet`, doc).length
       const dashboard = xpath.select(`/workbook/dashboards/dashboard`, doc).length 
       const count = {
+        "filename": filename,
+        "filesize": filesize,
         "datasource": datasource,
         "worksheet": worksheet,
         "dashboard": dashboard
@@ -35,7 +41,10 @@ const UploadFile = ({
     }
       reader.readAsBinaryString(file)
     })
-    onFileUpload(acceptedFiles)
+
+    if(acceptedFiles){
+      onFileUpload(acceptedFiles)
+    }
   }, [])
 
   const onFileUpload = async (acceptedFiles) => {
@@ -43,8 +52,10 @@ const UploadFile = ({
     const apiUrl = config.apiUrl;
     const url = `${apiUrl}/${endpoint.version}${endpoint.url}`
     // Push all the axios request promise into a single array
-    const uploaders = acceptedFiles.map(file => {
-      // Initial FormData
+    let promisall = []
+    let errors = []
+
+    acceptedFiles.forEach((file, key) => {
       const data = new FormData();
       data.append("file", file);
       data.append("file_name", file.name);
@@ -56,16 +67,28 @@ const UploadFile = ({
           updateState("percent", percent)
         }
       };
-
-      return axios.post(url, data, option)
+      promisall.push(new Promise((resolve, reject) => {
+        axios.post(url, data, option).then((res) => {
+          resolve(res)
+        })
+        .catch((err) => {
+          const error = 'Key: ' + key + ' Filename: ' + file.name + err
+          errors.push(error)
+          reject(errors);
+        });
+      
+      }))
     });
 
     // Once all the files are uploaded 
-    axios.all(uploaders).then(() => {
-      updateState("upload", true)
-    }).catch(function(error) {
-      updateState("upload", false)
-    });
+    Promise.all(promisall).then((res) => {
+      if(res){
+        updateState("upload", {"state": true})
+      }
+    }).catch((err) => {
+      console.log('errr2', err)
+      updateState("upload", {"state": false, "err": err})
+    }) 
   }
 
   const {getRootProps, getInputProps, rejectedFiles, isDragActive} = useDropzone({onDrop, accept: '.twb',})
@@ -81,7 +104,20 @@ const UploadFile = ({
       <div {...getRootProps({className: 'dropzone'})}>
         <input {...getInputProps()} />
         <div className="drag-wrapper">
-          <p>Drag some files here, or click to select files</p>
+          { upload.state != null 
+                ? (upload.state == true
+                  ? <p>{`Upload File Success`}</p>
+                  : (<div className="errors">
+                      <p>{`Upload File Failure:`}</p>
+                      <ul>
+                        {upload.err.map((error, key) => (
+                          <p key={key}>{error}</p>
+                        ))}
+                      </ul>
+                      </div>)
+                  )
+                : <p>Try dropping some files here, or click to select files to upload. {percent}</p>
+          }
         </div>
       </div>
       <aside>

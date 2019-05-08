@@ -11,7 +11,10 @@ class UploadFilePage extends React.Component {
     super(props);
     this.state = {
       percent: 0,
-      upload: false,
+      upload: {
+        state: null,
+        err: []
+      },
       countArray: [],
     };
     this.updateState = this.updateState.bind(this);
@@ -39,9 +42,11 @@ class UploadFilePage extends React.Component {
             
             {countArray.map((file, key) => (
             <div className="file-count" key={key}>
-                <p>Datasource: {file.datasource}</p>
-                <p>Worksheet: {file.worksheet}</p>
-                <p>Dashboard: {file.dashboard}</p>
+                <p><b>File name:</b> {file.filename}</p>
+                <p><b>File size:</b> {file.filesize}</p>
+                <p><b>Datasource:</b> {file.datasource}</p>
+                <p><b>Worksheet:</b> {file.worksheet}</p>
+                <p><b>Dashboard:</b> {file.dashboard}</p>
             </div>
             ))}
           </div>
