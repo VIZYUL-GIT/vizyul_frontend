@@ -12,61 +12,48 @@ var xpath = require('xpath')
  
 
 
-const UploadFile = () => {
-  const {rejectedFiles, getRootProps, getInputProps} = useDropzone({
-    accept: '.twb',
-    multiple: true,
-    onDrop: acceptedFiles => {
-      const endpoint = endpoints.POST_UPLOAD_FILE;
-      const apiUrl = config.apiUrl;
-      const url = `${apiUrl}/${endpoint.version}${endpoint.url}`
-      // Push all the axios request promise into a single array
-      const reader = new FileReader()
-      reader.onabort = () => console.log('file reading was aborted')
-      reader.onerror = () => console.log('file reading has failed')
-      reader.onload = () => {
-        // Do whatever you want with the file contents
-        const binaryStr = reader.result
-        var doc = new dom().parseFromString(binaryStr)
-        var nodes = xpath.select("/workbook/datasources/datasource", doc)
-        console.log(' Count of /workbook/datasources/datasource', nodes.length) 
-      }
-  
-      acceptedFiles.forEach(file => reader.readAsBinaryString(file))
-      // const uploaders = acceptedFiles.map(file => {
-      //   console.log('file', file)
-      //   // Initial FormData
-      //   const data = new FormData();
-      //   data.append("file", file);
-      //   data.append("file_name", file.name);
-  
-      //   const option = {
-      //     headers: { 'Content-type': 'multipart/form-data' },
-      //     onUploadProgress: progressEvent => {
-      //       let percent = Math.round(progressEvent.loaded * 100 / progressEvent.total)
-      //       this.setState({ percent: percent })
-      //     }
-      //   };
-  
-      //   return axios.post(url, data, option)
-      // });
-    
-      // Once all the files are uploaded 
-      // axios.all(uploaders).then(() => {
-      //   this.setState({upload: true})
-      // }).catch(function(error) {
-      //   this.setState({upload: false})
-      // });
+const UploadFile = ({
+    countArray,
+    updateState
+  }) => {
+
+  const onDrop = useCallback(acceptedFiles => {
+    let counntArray = []
+    acceptedFiles.forEach(file => {
+    const reader = new FileReader()
+
+    reader.onabort = () => console.log('file reading was aborted')
+    reader.onerror = () => console.log('file reading has failed')
+    reader.onload = () => {
+      // Do whatever you want with the file contents
+      const binaryStr = reader.result
+      const doc = new dom().parseFromString(binaryStr)
+      const datasource = xpath.select(`/workbook/datasources/datasource` , doc).length
+      const worksheet = xpath.select(`/workbook/worksheets/worksheet`, doc).length
+      const dashboard = xpath.select(`/workbook/dashboards/dashboard`, doc).length 
+     // let story = xpath.select(`/workbook/dashboards/dashboard(type <> 'storyboard')`, doc)
+      const count = {
+        "datasource": datasource,
+        "worksheet": worksheet,
+        "dashboard": dashboard
+      } 
+      counntArray.push(count)
     }
-  });
-  
+      reader.readAsBinaryString(file)
+    })
+    updateState("countArray", counntArray)
+  }, [])
+
+
+  const {getRootProps, getInputProps, rejectedFiles, isDragActive} = useDropzone({onDrop, accept: '.twb',})
+
   const rejectedFilesItems = rejectedFiles.map(file => (
     <li key={file.path}>
       {file.path} - {file.size} bytes
     </li>
   ));
 
-  return (
+  return (   
     <section className="container">
       <div {...getRootProps({className: 'dropzone'})}>
         <input {...getInputProps()} />
@@ -78,19 +65,32 @@ const UploadFile = () => {
           {rejectedFilesItems}
         </ul>
       </aside>
+      <ul>
+          {rejectedFilesItems}
+      </ul>
+      { typeof countArray !== "undefined" 
+        ? <ul className="file-list"> 
+            {countArray.map((file, key) => (
+            <li key={key}>
+                <p>Datasource: {file.datasource}</p>
+                <p>Worksheet: {file.worksheet}</p>
+                <p>Dashboard: {file.dashboard}</p>
+            </li>
+            ))}
+          </ul>
+        : null } 
       {/* <Line percent={percent} strokeWidth='1' strokeColor='#2db7f5' strokeLinecap='square' /> */}
     </section>
   );
 }
-const mapStateToProps = state => ({
-  upload: state.fileReducer.upload,
-  percent: state.fileReducer.percent
-})
-  
-const mapDispatchToProps = dispatch =>
-    bindActionCreators({ uploadFile }, dispatch)
+const actions = {};
+
+const mapDispatchToProps = (state) => {
+  return {
+  };
+}
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
+  actions
 )(UploadFile);
