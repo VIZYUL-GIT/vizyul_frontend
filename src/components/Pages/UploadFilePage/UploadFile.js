@@ -42,7 +42,7 @@ const UploadFile = ({
       reader.readAsBinaryString(file)
     })
 
-    if(acceptedFiles){
+    if(acceptedFiles.length>0){
       onFileUpload(acceptedFiles)
     }
   }, [])
@@ -68,26 +68,26 @@ const UploadFile = ({
         }
       };
       promisall.push(new Promise((resolve, reject) => {
-        axios.post(url, data, option).then((res) => {
-          resolve(res)
+        axios.post(url, data, option).then(() => {
+          resolve()
         })
         .catch((err) => {
-          const error = 'Key: ' + key + ' Filename: ' + file.name + err
+          const error = 'Filename: ' + file.name + err
           errors.push(error)
-          reject(errors);
+          resolve()
         });
-      
       }))
     });
 
     // Once all the files are uploaded 
-    Promise.all(promisall).then((res) => {
-      if(res){
+    Promise.all(promisall).then(() => {
+      if(errors.length>0){
+        updateState("upload", {"state": false, "err": errors})
+      }else{
         updateState("upload", {"state": true})
       }
     }).catch((err) => {
-      console.log('errr2', err)
-      updateState("upload", {"state": false, "err": err})
+        updateState("upload", {"state": false, "err": err})
     }) 
   }
 
