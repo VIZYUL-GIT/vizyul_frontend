@@ -7,11 +7,7 @@ class UploadFilePage extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      countArray: [{
-        datasource: "",
-        worksheet: "",
-        dashboard: ""
-      }]
+      countArray: []
     };
     this.updateState = this.updateState.bind(this);
   }

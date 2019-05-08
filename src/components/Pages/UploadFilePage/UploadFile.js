@@ -53,31 +53,37 @@ const UploadFile = ({
     </li>
   ));
 
+  console.log('rejectedFilesItems', rejectedFilesItems)
   return (   
-    <section className="container">
+    <section className="upload-file-wrapper">
       <div {...getRootProps({className: 'dropzone'})}>
         <input {...getInputProps()} />
-        <p>Drag some files here, or click to select files</p>
+        <div className="drag-wrapper">
+          <p>Drag some files here, or click to select files</p>
+        </div>
       </div>
       <aside>
-        <h4>Rejected files</h4>
-        <ul>
-          {rejectedFilesItems}
-        </ul>
+        { rejectedFilesItems.length != 0
+        ? <div>
+            <h4>Rejected files</h4>
+            <ul>
+              {rejectedFilesItems}
+            </ul>
+          </div>
+        : null
+        }
+       
       </aside>
-      <ul>
-          {rejectedFilesItems}
-      </ul>
-      { typeof countArray !== "undefined" 
-        ? <ul className="file-list"> 
+      { typeof countArray.length != 0 
+        ? <div className="file-list"> 
             {countArray.map((file, key) => (
-            <li key={key}>
+            <div className="file-count" key={key}>
                 <p>Datasource: {file.datasource}</p>
                 <p>Worksheet: {file.worksheet}</p>
                 <p>Dashboard: {file.dashboard}</p>
-            </li>
+            </div>
             ))}
-          </ul>
+          </div>
         : null } 
       {/* <Line percent={percent} strokeWidth='1' strokeColor='#2db7f5' strokeLinecap='square' /> */}
     </section>
