@@ -1,13 +1,18 @@
 import React from "react";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import "./UploadFilePage.scss";
 import UploadFile from "./UploadFile"
+import { Line } from 'rc-progress';
+import { uploadFile } from "../../../actions/fileActions"
 
 class UploadFilePage extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      countArray: []
+      percent: 0,
+      upload: false,
+      countArray: [],
     };
     this.updateState = this.updateState.bind(this);
   }
@@ -17,8 +22,7 @@ class UploadFilePage extends React.Component {
   }
 
   render() {
-    const {countArray} = this.state
-    console.log('  console.log(countArray.length)', countArray.length)
+    const {countArray, percent} = this.state
     const { updateState } = this;
     return (
       <div>
@@ -42,6 +46,7 @@ class UploadFilePage extends React.Component {
             ))}
           </div>
         : null }
+         <Line percent={percent} strokeWidth='1' strokeColor='#2db7f5' strokeLinecap='square' />
       </div>
     );
   }
