@@ -53,7 +53,6 @@ const UploadFile = ({
     </li>
   ));
 
-  console.log('rejectedFilesItems', rejectedFilesItems)
   return (   
     <section className="upload-file-wrapper">
       <div {...getRootProps({className: 'dropzone'})}>
