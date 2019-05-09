@@ -1,5 +1,5 @@
 {
     "apiUrl":"http://localhost:3000/api",
-    "redirectUrl":"http://localhost:3001/"
+    "redirectUrl":"http://localhost:3000/"
   }
   
